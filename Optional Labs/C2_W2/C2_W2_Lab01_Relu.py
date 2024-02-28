@@ -14,3 +14,5 @@ import warnings
 warnings.simplefilter(action='ignore', category=UserWarning)
 
 plt_act_trio()
+
+_ = plt_relu_ex()
