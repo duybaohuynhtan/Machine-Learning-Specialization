@@ -15,17 +15,6 @@ from autils import *
 from lab_utils_softmax import plt_softmax
 np.set_printoptions(precision=2)
 
-def my_softmax(z):  
-    """ Softmax converts a vector of values to a probability distribution.
-    Args:
-      z (ndarray (N,))  : input data, N features
-    Returns:
-      a (ndarray (N,))  : softmax of z
-    """    
-    ez = np.exp(z)
-    a = ez/np.sum(ez)
-    return a
-
 # load dataset
 X, y = load_data()
 
