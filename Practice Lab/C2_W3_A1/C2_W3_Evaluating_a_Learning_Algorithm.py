@@ -29,3 +29,12 @@ print("X.shape", X.shape, "y.shape", y.shape)
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33, random_state=1)
 print("X_train.shape", X_train.shape, "y_train.shape", y_train.shape)
 print("X_test.shape", X_test.shape, "y_test.shape", y_test.shape)
+
+# Generate some data
+X,y,x_ideal,y_ideal = gen_data(18, 2, 0.7)
+print("X.shape", X.shape, "y.shape", y.shape)
+
+#split the data using sklearn routine 
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33, random_state=1)
+print("X_train.shape", X_train.shape, "y_train.shape", y_train.shape)
+print("X_test.shape", X_test.shape, "y_test.shape", y_test.shape)
