@@ -64,3 +64,26 @@ optimal_degree = np.argmin(err_cv)+1
 plt.close("all")
 plt_optimal_degree(X_train, y_train, X_cv, y_cv, x, y_pred, x_ideal, y_ideal, 
                    err_train, err_cv, optimal_degree, max_degree)
+
+lambda_range = np.array([0.0, 1e-6, 1e-5, 1e-4,1e-3,1e-2, 1e-1,1,10,100])
+num_steps = len(lambda_range)
+degree = 10
+err_train = np.zeros(num_steps)    
+err_cv = np.zeros(num_steps)       
+x = np.linspace(0,int(X.max()),100) 
+y_pred = np.zeros((100,num_steps))  #columns are lines to plot
+
+for i in range(num_steps):
+    lambda_= lambda_range[i]
+    lmodel = lin_model(degree, regularization=True, lambda_=lambda_)
+    lmodel.fit(X_train, y_train)
+    yhat = lmodel.predict(X_train)
+    err_train[i] = lmodel.mse(y_train, yhat)
+    yhat = lmodel.predict(X_cv)
+    err_cv[i] = lmodel.mse(y_cv, yhat)
+    y_pred[:,i] = lmodel.predict(x)
+    
+optimal_reg_idx = np.argmin(err_cv)
+
+X_train, y_train, X_cv, y_cv, x, y_pred, err_train, err_cv, m_range,degree = tune_m()
+plt_tune_m(X_train, y_train, X_cv, y_cv, x, y_pred, err_train, err_cv, m_range, degree)
