@@ -21,6 +21,22 @@ from assigment_utils import *
 
 tf.autograph.set_verbosity(0)
 
+def eval_mse(y, yhat):
+    """ 
+    Calculate the mean squared error on a data set.
+    Args:
+      y    : (ndarray  Shape (m,) or (m,1))  target value of each example
+      yhat : (ndarray  Shape (m,) or (m,1))  predicted value of each example
+    Returns:
+      err: (scalar)             
+    """
+    m = len(y)
+    err = 0.0
+    for i in range(m):
+        err+=(y[i]-yhat[i])**2
+    err/= 2*m
+    return(err)
+
 # Generate some data
 X,y,x_ideal,y_ideal = gen_data(18, 2, 0.7)
 print("X.shape", X.shape, "y.shape", y.shape)
@@ -38,3 +54,29 @@ print("X.shape", X.shape, "y.shape", y.shape)
 X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.33, random_state=1)
 print("X_train.shape", X_train.shape, "y_train.shape", y_train.shape)
 print("X_test.shape", X_test.shape, "y_test.shape", y_test.shape)
+
+fig, ax = plt.subplots(1,1,figsize=(4,4))
+ax.plot(x_ideal, y_ideal, "--", color = "orangered", label="y_ideal", lw=1)
+ax.set_title("Training, Test",fontsize = 14)
+ax.set_xlabel("x")
+ax.set_ylabel("y")
+
+ax.scatter(X_train, y_train, color = "red",           label="train")
+ax.scatter(X_test, y_test,   color = dlc["dlblue"],   label="test")
+ax.legend(loc='upper left')
+plt.show()
+
+# create a model in sklearn, train on training data
+degree = 10
+lmodel = lin_model(degree)
+lmodel.fit(X_train, y_train)
+
+# predict on training data, find training error
+yhat = lmodel.predict(X_train)
+err_train = lmodel.mse(y_train, yhat)
+
+# predict on test data, find error
+yhat = lmodel.predict(X_test)
+err_test = lmodel.mse(y_test, yhat)
+
+print(f"training err {err_train:0.2f}, test err {err_test:0.2f}")
