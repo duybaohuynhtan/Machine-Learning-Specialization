@@ -21,6 +21,23 @@ from assigment_utils import *
 
 tf.autograph.set_verbosity(0)
 
+def eval_cat_err(y, yhat):
+    """ 
+    Calculate the categorization error
+    Args:
+      y    : (ndarray  Shape (m,) or (m,1))  target value of each example
+      yhat : (ndarray  Shape (m,) or (m,1))  predicted value of each example
+    Returns:|
+      cerr: (scalar)             
+    """
+    m = len(y)
+    incorrect = 0
+    for i in range(m):
+        if(yhat[i]!=y[i]):
+            incorrect+=1
+    cerr=incorrect/m
+    return(cerr)
+
 # Generate and split data set
 X, y, centers, classes, std = gen_blobs() 
 
