@@ -20,3 +20,13 @@ tf.keras.backend.set_floatx('float64')
 from assigment_utils import *
 
 tf.autograph.set_verbosity(0)
+
+# Generate and split data set
+X, y, centers, classes, std = gen_blobs() 
+
+# split the data. Large CV population for demonstration
+X_train, X_, y_train, y_ = train_test_split(X,y,test_size=0.50, random_state=1)
+X_cv, X_test, y_cv, y_test = train_test_split(X_,y_,test_size=0.20, random_state=1)
+print("X_train.shape:", X_train.shape, "X_cv.shape:", X_cv.shape, "X_test.shape:", X_test.shape)
+
+plt_train_eq_dist(X_train, y_train,classes, X_cv, y_cv, centers, std)
