@@ -21,7 +21,6 @@ def find_closest_centroids(X, centroids):
     # You need to return the following variables correctly
     idx = np.zeros(X.shape[0], dtype=int)
 
-    ### START CODE HERE ###
     for i in range(X.shape[0]):
           # Array to hold distance between X[i] and each centroids[j]
           distance = [] 
@@ -30,7 +29,8 @@ def find_closest_centroids(X, centroids):
               distance.append(norm_ij)
 
           idx[i] = np.argmin(distance)
-
-    ### END CODE HERE ###
     
     return idx
+
+# Load an example dataset that we will be using
+X = load_data()
