@@ -34,3 +34,6 @@ def find_closest_centroids(X, centroids):
 
 # Load an example dataset that we will be using
 X = load_data()
+
+print("First five elements of X are:\n", X[:5]) 
+print('The shape of X is:', X.shape)
