@@ -32,6 +32,32 @@ def find_closest_centroids(X, centroids):
     
     return idx
 
+def compute_centroids(X, idx, K):
+    """
+    Returns the new centroids by computing the means of the 
+    data points assigned to each centroid.
+    
+    Args:
+        X (ndarray):   (m, n) Data points
+        idx (ndarray): (m,) Array containing index of closest centroid for each 
+                       example in X. Concretely, idx[i] contains the index of 
+                       the centroid closest to example i
+        K (int):       number of centroids
+    
+    Returns:
+        centroids (ndarray): (K, n) New centroids computed
+    """
+    
+    m, n = X.shape
+    
+    centroids = np.zeros((K, n))
+
+    for k in range(K):   
+          points = X[idx == k]  
+          centroids[k] = np.mean(points, axis = 0)
+    
+    return centroids
+
 # Load an example dataset that we will be using
 X = load_data()
 
