@@ -95,3 +95,12 @@ X = load_data()
 
 print("First five elements of X are:\n", X[:5]) 
 print('The shape of X is:', X.shape)
+
+# Set initial centroids
+initial_centroids = np.array([[3,3],[6,2],[8,5]])
+K = 3
+
+# Number of iterations
+max_iters = 10
+
+centroids, idx = run_kMeans(X, initial_centroids, max_iters, plot_progress=True)
