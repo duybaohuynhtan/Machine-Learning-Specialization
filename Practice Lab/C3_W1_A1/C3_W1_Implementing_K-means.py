@@ -128,3 +128,6 @@ centroids, idx = run_kMeans(X, initial_centroids, max_iters, plot_progress=True)
 
 # Load an image of a bird
 original_img = plt.imread('bird_small.png')
+
+# Visualizing the image
+plt.imshow(original_img)
