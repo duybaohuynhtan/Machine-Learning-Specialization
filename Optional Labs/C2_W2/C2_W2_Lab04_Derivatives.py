@@ -40,3 +40,25 @@ J = (2)**3
 J_epsilon = (2+0.001)**3
 k = (J_epsilon - J)/0.001
 print(f"J = {J}, J_epsilon = {J_epsilon}, dJ_dw ~= k = {k} ")
+
+J, w = symbols('J, w')
+J= 1/w
+J
+dJ_dw = diff(J,w)
+dJ_dw
+dJ_dw.subs([(w,2)])
+J = 1/2
+J_epsilon = 1/(2+0.001)
+k = (J_epsilon - J)/0.001
+print(f"J = {J}, J_epsilon = {J_epsilon}, dJ_dw ~= k = {k} ")
+
+J, w = symbols('J, w')
+J= 1/w**2
+J
+dJ_dw = diff(J,w)
+dJ_dw
+dJ_dw.subs([(w,4)])
+J = 1/4**2
+J_epsilon = 1/(4+0.001)**2
+k = (J_epsilon - J)/0.001
+print(f"J = {J}, J_epsilon = {J_epsilon}, dJ_dw ~= k = {k} ")
