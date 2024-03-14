@@ -18,3 +18,10 @@ dJ_dw
 dJ_dw.subs([(w,2)])    # derivative at the point w = 2
 dJ_dw.subs([(w,3)])    # derivative at the point w = 3
 dJ_dw.subs([(w,-3)])    # derivative at the point w = -3
+
+w, J = symbols('w, J')
+J = 2 * w
+J
+dJ_dw = diff(J,w)
+dJ_dw
+dJ_dw.subs([(w,-3)])    # derivative at the point w = -3
