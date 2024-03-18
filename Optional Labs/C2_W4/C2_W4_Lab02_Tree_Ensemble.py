@@ -39,3 +39,54 @@ X_train, X_test, y_train, y_test = train_test_split(df[var], df['HeartDisease'],
 
 print(f'train samples: {len(X_train)}\ntest samples: {len(X_test)}')
 print(f'target proportion: {sum(y_train)/len(y_train):.4f}')
+
+min_samples_split_list = [2,10, 30, 50, 100, 200, 300, 700] ## If the number is an integer, then it is the actual quantity of samples,
+max_depth_list = [1,2, 3, 4, 8, 16, 32, 64, None] # None means that there is no depth limit.
+
+accuracy_list_train = []
+accuracy_list_test = []
+for min_samples_split in min_samples_split_list:
+    # You can fit the model at the same time you define it, because the fit function returns the fitted estimator.
+    model = DecisionTreeClassifier(min_samples_split = min_samples_split,
+                                   random_state = RANDOM_STATE).fit(X_train,y_train) 
+    predictions_train = model.predict(X_train) ## The predicted values for the train dataset
+    predictions_test = model.predict(X_test) ## The predicted values for the test dataset
+    accuracy_train = accuracy_score(predictions_train,y_train)
+    accuracy_test = accuracy_score(predictions_test,y_test)
+    accuracy_list_train.append(accuracy_train)
+    accuracy_list_test.append(accuracy_test)
+
+plt.title('Train x Test metrics')
+plt.xlabel('min_samples_split')
+plt.ylabel('accuracy')
+plt.xticks(ticks = range(len(min_samples_split_list )),labels=min_samples_split_list)
+plt.plot(accuracy_list_train)
+plt.plot(accuracy_list_test)
+plt.legend(['Train','Test'])
+
+accuracy_list_train = []
+accuracy_list_test = []
+for max_depth in max_depth_list:
+    # You can fit the model at the same time you define it, because the fit function returns the fitted estimator.
+    model = DecisionTreeClassifier(max_depth = max_depth,
+                                   random_state = RANDOM_STATE).fit(X_train,y_train) 
+    predictions_train = model.predict(X_train) ## The predicted values for the train dataset
+    predictions_test = model.predict(X_test) ## The predicted values for the test dataset
+    accuracy_train = accuracy_score(predictions_train,y_train)
+    accuracy_test = accuracy_score(predictions_test,y_test)
+    accuracy_list_train.append(accuracy_train)
+    accuracy_list_test.append(accuracy_test)
+
+plt.title('Train x Test metrics')
+plt.xlabel('max_depth')
+plt.ylabel('accuracy')
+plt.xticks(ticks = range(len(max_depth_list )),labels=max_depth_list)
+plt.plot(accuracy_list_train)
+plt.plot(accuracy_list_test)
+plt.legend(['Train','Test'])
+
+decision_tree_model = DecisionTreeClassifier(min_samples_split = 50,
+                                             max_depth = 3,
+                                             random_state = RANDOM_STATE).fit(X_train,y_train)
+
+print(f"Metrics train:\n\tAccuracy score: {accuracy_score(decision_tree_model.predict(X_train),y_train):.4f}\nMetrics test:\n\tAccuracy score: {accuracy_score(decision_tree_model.predict(X_test),y_test):.4f}")
