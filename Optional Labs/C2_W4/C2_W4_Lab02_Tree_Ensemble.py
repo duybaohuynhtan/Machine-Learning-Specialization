@@ -164,3 +164,17 @@ random_forest_model = RandomForestClassifier(n_estimators = 100,
                                              min_samples_split = 10).fit(X_train,y_train)
 
 print(f"Metrics train:\n\tAccuracy score: {accuracy_score(random_forest_model.predict(X_train),y_train):.4f}\nMetrics test:\n\tAccuracy score: {accuracy_score(random_forest_model.predict(X_test),y_test):.4f}")
+
+n = int(len(X_train)*0.8) ## Let's use 80% to train and 20% to eval
+
+X_train_fit, X_train_eval, y_train_fit, y_train_eval = X_train[:n], X_train[n:], y_train[:n], y_train[n:]
+
+xgb_model = XGBClassifier(n_estimators = 500, learning_rate = 0.1,verbosity = 1, random_state = RANDOM_STATE)
+xgb_model.fit(X_train_fit,y_train_fit, eval_set = [(X_train_eval,y_train_eval)], early_stopping_rounds = 50)
+# Here we must pass a list to the eval_set, because you can have several different tuples ov eval sets. The parameter 
+# early_stopping_rounds is the number of iterations that it will wait to check if the cost function decreased or not.
+# If not, it will stop and get the iteration that returned the lowest metric on the eval set.
+
+xgb_model.best_iteration
+
+print(f"Metrics train:\n\tAccuracy score: {accuracy_score(xgb_model.predict(X_train),y_train):.4f}\nMetrics test:\n\tAccuracy score: {accuracy_score(xgb_model.predict(X_test),y_test):.4f}")
