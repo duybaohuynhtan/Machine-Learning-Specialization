@@ -2,7 +2,7 @@
 
 In this exercise, you will implement a decision tree from scratch and apply it to the task of classifying whether a mushroom is edible or poisonous.
 
-## Problem Statement
+## 1 - Problem Statement
 
 Suppose you are starting a company that grows and sells wild mushrooms. 
 - Since not all mushrooms are edible, you'd like to be able to tell whether a given mushroom is edible or poisonous based on it's physical attributes
@@ -12,7 +12,7 @@ Can you use the data to help you identify which mushrooms can be sold safely?
 
 Note: The dataset used is for illustrative purposes only. It is not meant to be a guide on identifying edible mushrooms.
 
-## Decision Tree Refresher
+## 2 - Decision Tree Refresher
 
 In this practice lab, you will build a decision tree based on the dataset provided.
 
