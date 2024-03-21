@@ -109,16 +109,3 @@ def kMeans_init_centroids(X, K):
     centroids = X[randidx[:K]]
     
     return centroids
-
-# Load an example dataset
-X = load_data()
-
-# Set initial centroids
-K = 3
-# initial_centroids = np.array([[3,3],[6,2],[8,5]])
-initial_centroids = kMeans_init_centroids(X, K)
-
-# Number of iterations
-max_iters = 10
-
-centroids, idx = run_kMeans(X, initial_centroids, max_iters, plot_progress=True)
