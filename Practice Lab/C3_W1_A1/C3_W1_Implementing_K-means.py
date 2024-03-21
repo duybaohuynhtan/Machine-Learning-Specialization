@@ -89,5 +89,14 @@ def run_kMeans(X, initial_centroids, max_iters=10, plot_progress=False):
     plt.show() 
     return centroids, idx
 
-# Load an example dataset that we will be using
+# Load an example dataset
 X = load_data()
+
+# Set initial centroids
+initial_centroids = np.array([[3,3],[6,2],[8,5]])
+K = 3
+
+# Number of iterations
+max_iters = 10
+
+centroids, idx = run_kMeans(X, initial_centroids, max_iters, plot_progress=True)
