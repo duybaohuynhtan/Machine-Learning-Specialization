@@ -85,3 +85,37 @@ p = multivariate_gaussian(X_train, mu, var)
 
 #Plotting code 
 visualize_fit(X_train, mu, var)
+
+p_val = multivariate_gaussian(X_val, mu, var)
+epsilon, F1 = select_threshold(y_val, p_val)
+
+# Find the outliers in the training set 
+outliers = p < epsilon
+
+# Visualize the fit
+visualize_fit(X_train, mu, var)
+
+# Draw a red circle around those outliers
+plt.plot(X_train[outliers, 0], X_train[outliers, 1], 'ro',
+         markersize= 10,markerfacecolor='none', markeredgewidth=2)
+
+# load the dataset
+X_train_high, X_val_high, y_val_high = load_data_multi()
+
+# Apply the same steps to the larger dataset
+
+# Estimate the Gaussian parameters
+mu_high, var_high = estimate_gaussian(X_train_high)
+
+# Evaluate the probabilites for the training set
+p_high = multivariate_gaussian(X_train_high, mu_high, var_high)
+
+# Evaluate the probabilites for the cross validation set
+p_val_high = multivariate_gaussian(X_val_high, mu_high, var_high)
+
+# Find the best threshold
+epsilon_high, F1_high = select_threshold(y_val_high, p_val_high)
+
+print('Best epsilon found using cross-validation: %e'% epsilon_high)
+print('Best F1 on Cross Validation Set:  %f'% F1_high)
+print('# Anomalies found: %d'% sum(p_high < epsilon_high))
