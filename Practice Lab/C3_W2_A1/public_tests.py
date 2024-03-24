@@ -12,7 +12,7 @@ def test_cofi_cost_func(target):
     R_r = np.zeros((num_movies_r, num_users_r))
     
     J = target(X_r, W_r, b_r, Y_r, R_r, 2);
-    assert not np.isclose(J, 13.5), f"Wrong value. Got {J}. Did you multiplied the regulartization term by lambda_?"
+    assert not np.isclose(J, 13.5), f"Wrong value. Got {J}. Did you multiply the regularization term by lambda_?"
     assert np.isclose(J, 27), f"Wrong value. Expected {27}, got {J}. Check the regularization term"
     
     
