@@ -52,3 +52,11 @@ def cofi_cost_func_v(X, W, b, Y, R, lambda_):
 #Load data
 X, W, b, num_movies, num_features, num_users = load_precalc_params_small()
 Y, R = load_ratings_small()
+
+# Evaluate cost function
+J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 0);
+print(f"Cost: {J:0.2f}")
+
+# Evaluate cost function with regularization 
+J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 1.5);
+print(f"Cost (with regularization): {J:0.2f}")
