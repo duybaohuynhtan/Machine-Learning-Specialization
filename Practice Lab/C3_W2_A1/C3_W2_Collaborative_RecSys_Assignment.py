@@ -91,3 +91,15 @@ print('\nNew user ratings:\n')
 for i in range(len(my_ratings)):
     if my_ratings[i] > 0 :
         print(f'Rated {my_ratings[i]} for  {movieList_df.loc[i,"title"]}');
+
+# Reload ratings
+Y, R = load_ratings_small()
+
+# Add new user ratings to Y 
+Y = np.c_[my_ratings, Y]
+
+# Add new user indicator matrix to R
+R = np.c_[(my_ratings != 0).astype(int), R]
+
+# Normalize the Dataset
+Ynorm, Ymean = normalizeRatings(Y, R)
