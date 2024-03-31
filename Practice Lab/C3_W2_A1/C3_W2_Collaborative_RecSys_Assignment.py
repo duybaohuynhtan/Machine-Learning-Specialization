@@ -14,3 +14,7 @@ print("b", b.shape)
 print("num_features", num_features)
 print("num_movies",   num_movies)
 print("num_users",    num_users)
+
+#  From the matrix, we can compute statistics like average rating.
+tsmean =  np.mean(Y[0, R[0, :].astype(bool)])
+print(f"Average rating for movie 1 : {tsmean:0.3f} / 5" )
