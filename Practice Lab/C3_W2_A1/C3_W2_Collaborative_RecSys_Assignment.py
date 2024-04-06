@@ -57,11 +57,3 @@ Y, R = load_ratings_small()
 #  From the matrix, we can compute statistics like average rating.
 tsmean =  np.mean(Y[0, R[0, :].astype(bool)])
 print(f"Average rating for movie 1 : {tsmean:0.3f} / 5" )
-
-# Evaluate cost function
-J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 0);
-print(f"Cost: {J:0.2f}")
-
-# Evaluate cost function with regularization 
-J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 1.5);
-print(f"Cost (with regularization): {J:0.2f}")
