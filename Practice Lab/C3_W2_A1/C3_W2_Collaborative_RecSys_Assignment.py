@@ -109,3 +109,46 @@ b = tf.Variable(tf.random.normal((1,          num_users),   dtype=tf.float64),  
 
 # Instantiate an optimizer.
 optimizer = keras.optimizers.Adam(learning_rate=1e-1)
+
+iterations = 200
+lambda_ = 1
+for iter in range(iterations):
+    # Use TensorFlow’s GradientTape
+    # to record the operations used to compute the cost 
+    with tf.GradientTape() as tape:
+
+        # Compute the cost (forward pass included in cost)
+        cost_value = cofi_cost_func_v(X, W, b, Ynorm, R, lambda_)
+
+    # Use the gradient tape to automatically retrieve
+    # the gradients of the trainable variables with respect to the loss
+    grads = tape.gradient( cost_value, [X,W,b] )
+
+    # Run one step of gradient descent by updating
+    # the value of the variables to minimize the loss.
+    optimizer.apply_gradients( zip(grads, [X,W,b]) )
+
+    # Log periodically.
+    if iter % 20 == 0:
+        print(f"Training loss at iteration {iter}: {cost_value:0.1f}")
+
+# Make a prediction using trained weights and biases
+p = np.matmul(X.numpy(), np.transpose(W.numpy())) + b.numpy()
+
+#restore the mean
+pm = p + Ymean
+
+my_predictions = pm[:,0]
+
+# sort predictions
+ix = tf.argsort(my_predictions, direction='DESCENDING')
+
+for i in range(17):
+    j = ix[i]
+    if j not in my_rated:
+        print(f'Predicting rating {my_predictions[j]:0.2f} for movie {movieList[j]}')
+
+print('\n\nOriginal vs Predicted ratings:\n')
+for i in range(len(my_ratings)):
+    if my_ratings[i] > 0:
+        print(f'Original {my_ratings[i]}, Predicted {my_predictions[i]:0.2f} for {movieList[i]}')
