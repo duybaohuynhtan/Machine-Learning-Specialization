@@ -54,10 +54,6 @@ def cofi_cost_func_v(X, W, b, Y, R, lambda_):
 X, W, b, num_movies, num_features, num_users = load_precalc_params_small()
 Y, R = load_ratings_small()
 
-#  From the matrix, we can compute statistics like average rating.
-tsmean =  np.mean(Y[0, R[0, :].astype(bool)])
-print(f"Average rating for movie 1 : {tsmean:0.3f} / 5" )
-
 movieList, movieList_df = load_Movie_List_pd()
 
 my_ratings = np.zeros(num_movies)          #  Initialize my ratings
@@ -88,3 +84,15 @@ print('\nNew user ratings:\n')
 for i in range(len(my_ratings)):
     if my_ratings[i] > 0 :
         print(f'Rated {my_ratings[i]} for  {movieList_df.loc[i,"title"]}');
+
+# Reload ratings
+Y, R = load_ratings_small()
+
+# Add new user ratings to Y 
+Y = np.c_[my_ratings, Y]
+
+# Add new user indicator matrix to R
+R = np.c_[(my_ratings != 0).astype(int), R]
+
+# Normalize the Dataset
+Ynorm, Ymean = normalizeRatings(Y, R)
