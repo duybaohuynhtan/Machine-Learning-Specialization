@@ -106,3 +106,23 @@ user_vec = np.array([[new_user_id, new_rating_count, new_rating_ave,
                       new_comedy, new_crime, new_documentary,
                       new_drama, new_fantasy, new_horror, new_mystery,
                       new_romance, new_scifi, new_thriller]])
+
+# generate and replicate the user vector to match the number movies in the data set.
+user_vecs = gen_user_vecs(user_vec,len(item_vecs))
+
+# scale our user and item vectors
+suser_vecs = scalerUser.transform(user_vecs)
+sitem_vecs = scalerItem.transform(item_vecs)
+
+# make a prediction
+y_p = model.predict([suser_vecs[:, u_s:], sitem_vecs[:, i_s:]])
+
+# unscale y prediction 
+y_pu = scalerTarget.inverse_transform(y_p)
+
+# sort the results, highest prediction first
+sorted_index = np.argsort(-y_pu,axis=0).reshape(-1).tolist()  #negate to get largest rating first
+sorted_ypu   = y_pu[sorted_index]
+sorted_items = item_vecs[sorted_index]  #using unscaled vectors for display
+
+print_pred_movies(sorted_ypu, sorted_items, movie_dict, maxcount = 10)
