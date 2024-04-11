@@ -169,3 +169,32 @@ print_existing_user(sorted_ypu, sorted_y.reshape(-1,1), sorted_user, sorted_item
 
 # finding similar items
 
+input_item_m = tf.keras.layers.Input(shape=(num_item_features))    # input layer
+vm_m = item_NN(input_item_m)                                       # use the trained item_NN
+vm_m = tf.linalg.l2_normalize(vm_m, axis=1)                        # incorporate normalization as was done in the original model
+model_m = tf.keras.Model(input_item_m, vm_m)                                
+model_m.summary()
+
+scaled_item_vecs = scalerItem.transform(item_vecs)
+vms = model_m.predict(scaled_item_vecs[:,i_s:])
+
+count = 50  # number of movies to display
+dim = len(vms)
+dist = np.zeros((dim,dim))
+
+for i in range(dim):
+    for j in range(dim):
+        dist[i,j] = sq_dist(vms[i, :], vms[j, :])
+        
+m_dist = ma.masked_array(dist, mask=np.identity(dist.shape[0]))  # mask the diagonal
+
+disp = [["movie1", "genres", "movie2", "genres"]]
+for i in range(count):
+    min_idx = np.argmin(m_dist[i])
+    movie1_id = int(item_vecs[i,0])
+    movie2_id = int(item_vecs[min_idx,0])
+    disp.append( [movie_dict[movie1_id]['title'], movie_dict[movie1_id]['genres'],
+                  movie_dict[movie2_id]['title'], movie_dict[movie1_id]['genres']]
+               )
+table = tabulate.tabulate(disp, tablefmt='html', headers="firstrow")
+table
