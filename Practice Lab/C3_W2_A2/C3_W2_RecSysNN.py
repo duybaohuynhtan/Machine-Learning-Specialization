@@ -72,3 +72,11 @@ output = tf.keras.layers.Dot(axes=1)([vu, vm])
 model = tf.keras.Model([input_user, input_item], output)
 
 model.summary()
+
+tf.random.set_seed(1)
+cost_fn = tf.keras.losses.MeanSquaredError()
+opt = keras.optimizers.Adam(learning_rate=0.01)
+model.compile(optimizer=opt, loss=cost_fn)
+
+tf.random.set_seed(1)
+model.fit([user_train[:, u_s:], item_train[:, i_s:]], y_train, epochs=30)
