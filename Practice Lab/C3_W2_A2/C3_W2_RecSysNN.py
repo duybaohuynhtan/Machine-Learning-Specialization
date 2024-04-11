@@ -9,6 +9,18 @@ import tabulate
 from recsysNN_utils import *
 pd.set_option("display.precision", 1)
 
+def sq_dist(a,b):
+    """
+    Returns the squared distance between two vectors
+    Args:
+      a (ndarray (n,)): vector with n features
+      b (ndarray (n,)): vector with n features
+    Returns:
+      d (float) : distance
+    """  
+    d = sum(np.square(a-b))  
+    return d
+
 # Load Data, set configuration variables
 item_train, user_train, y_train, item_features, user_features, item_vecs, movie_dict, user_to_genre = load_data()
 
@@ -83,6 +95,8 @@ model.fit([user_train[:, u_s:], item_train[:, i_s:]], y_train, epochs=30)
 
 model.evaluate([user_test[:, u_s:], item_test[:, i_s:]], y_test)
 
+# predictions for a new user
+
 new_user_id = 5000
 new_rating_ave = 0.0
 new_action = 0.0
@@ -126,3 +140,32 @@ sorted_ypu   = y_pu[sorted_index]
 sorted_items = item_vecs[sorted_index]  #using unscaled vectors for display
 
 print_pred_movies(sorted_ypu, sorted_items, movie_dict, maxcount = 10)
+
+# predictions for an existing user
+
+uid = 2 
+# form a set of user vectors. This is the same vector, transformed and repeated.
+user_vecs, y_vecs = get_user_vecs(uid, user_train_unscaled, item_vecs, user_to_genre)
+
+# scale our user and item vectors
+suser_vecs = scalerUser.transform(user_vecs)
+sitem_vecs = scalerItem.transform(item_vecs)
+
+# make a prediction
+y_p = model.predict([suser_vecs[:, u_s:], sitem_vecs[:, i_s:]])
+
+# unscale y prediction 
+y_pu = scalerTarget.inverse_transform(y_p)
+
+# sort the results, highest prediction first
+sorted_index = np.argsort(-y_pu,axis=0).reshape(-1).tolist()  #negate to get largest rating first
+sorted_ypu   = y_pu[sorted_index]
+sorted_items = item_vecs[sorted_index]  #using unscaled vectors for display
+sorted_user  = user_vecs[sorted_index]
+sorted_y     = y_vecs[sorted_index]
+
+#print sorted predictions for movies rated by the user
+print_existing_user(sorted_ypu, sorted_y.reshape(-1,1), sorted_user, sorted_items, ivs, uvs, movie_dict, maxcount = 50)
+
+# finding similar items
+
