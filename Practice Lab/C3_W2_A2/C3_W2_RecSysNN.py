@@ -80,3 +80,29 @@ model.compile(optimizer=opt, loss=cost_fn)
 
 tf.random.set_seed(1)
 model.fit([user_train[:, u_s:], item_train[:, i_s:]], y_train, epochs=30)
+
+model.evaluate([user_test[:, u_s:], item_test[:, i_s:]], y_test)
+
+new_user_id = 5000
+new_rating_ave = 0.0
+new_action = 0.0
+new_adventure = 5.0
+new_animation = 0.0
+new_childrens = 0.0
+new_comedy = 0.0
+new_crime = 0.0
+new_documentary = 0.0
+new_drama = 0.0
+new_fantasy = 5.0
+new_horror = 0.0
+new_mystery = 0.0
+new_romance = 0.0
+new_scifi = 0.0
+new_thriller = 0.0
+new_rating_count = 3
+
+user_vec = np.array([[new_user_id, new_rating_count, new_rating_ave,
+                      new_action, new_adventure, new_animation, new_childrens,
+                      new_comedy, new_crime, new_documentary,
+                      new_drama, new_fantasy, new_horror, new_mystery,
+                      new_romance, new_scifi, new_thriller]])
