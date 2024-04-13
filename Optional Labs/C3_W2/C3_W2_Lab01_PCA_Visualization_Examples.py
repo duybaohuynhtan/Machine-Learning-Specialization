@@ -116,3 +116,24 @@ for rows in axs:
         
 # This may take 1 minute to run
 corr = df.corr()
+
+## This will show all the features that have correlation > 0.5 in absolute value. We remove the features 
+## with correlation == 1 to remove the correlation of a feature with itself
+
+mask = (abs(corr) > 0.5) & (abs(corr) != 1)
+corr.where(mask).stack().sort_values()
+
+# Loading the PCA object
+pca = PCA(n_components = 2) # Here we choose the number of components that we will keep.
+X_pca = pca.fit_transform(df)
+df_pca = pd.DataFrame(X_pca, columns = ['principal_component_1','principal_component_2'])
+
+df_pca.head()
+
+plt.scatter(df_pca['principal_component_1'],df_pca['principal_component_2'], color = "#C00000")
+plt.xlabel('principal_component_1')
+plt.ylabel('principal_component_2')
+plt.title('PCA decomposition')
+
+# pca.explained_variance_ration_ returns a list where it shows the amount of variance explained by each principal component.
+sum(pca.explained_variance_ratio_)
