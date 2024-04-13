@@ -86,3 +86,34 @@ X = random_point_circle(n = 150)
 deb = plot_3d_2d_graphs(X)
 
 deb.update_layout(yaxis2 = dict(title_text = 'test', visible=True))
+
+df = pd.read_csv("toy_dataset.csv")
+
+df.head()
+
+def get_pairs(n = 100):
+    from random import randint
+    i = 0
+    tuples = []
+    while i < 100:
+        x = df.columns[randint(0,999)]
+        y = df.columns[randint(0,999)]
+        while x == y or (x,y) in tuples or (y,x) in tuples:
+            y = df.columns[randint(0,999)]
+        tuples.append((x,y))
+        i+=1
+    return tuples
+
+pairs = get_pairs()
+
+fig, axs = plt.subplots(10,10, figsize = (35,35))
+i = 0
+for rows in axs:
+    for ax in rows:
+        ax.scatter(df[pairs[i][0]],df[pairs[i][1]], color = "#C00000")
+        ax.set_xlabel(pairs[i][0])
+        ax.set_ylabel(pairs[i][1])
+        i+=1
+        
+# This may take 1 minute to run
+corr = df.corr()
