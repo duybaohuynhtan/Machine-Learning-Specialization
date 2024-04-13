@@ -48,3 +48,33 @@ X_reduced_1 = pca_1.inverse_transform(X_trans_1)
 X_reduced_1
 
 plt.plot(X_reduced_1[:,0], X_reduced_1[:,1], 'ro')
+
+X = np.array([[-0.83934975, -0.21160323],
+       [ 0.67508491,  0.25113527],
+       [-0.05495253,  0.36339613],
+       [-0.57524042,  0.24450324],
+       [ 0.58468572,  0.95337657],
+       [ 0.5663363 ,  0.07555096],
+       [-0.50228538, -0.65749982],
+       [-0.14075593,  0.02713815],
+       [ 0.2587186 , -0.26890678],
+       [ 0.02775847, -0.77709049]])
+
+p = figure(title = '10-point scatterplot', x_axis_label = 'x-axis', y_axis_label = 'y-axis') ## Creates the figure object
+p.scatter(X[:,0],X[:,1],marker = 'o', color = '#C00000', size = 5) ## Add the scatter plot
+
+## Some visual adjustments
+p.grid.visible = False
+p.grid.visible = False
+p.outline_line_color = None 
+p.toolbar.logo = None
+p.toolbar_location = None
+p.xaxis.axis_line_color = "#f0f0f0"
+p.xaxis.axis_line_width = 5
+p.yaxis.axis_line_color = "#f0f0f0"
+p.yaxis.axis_line_width = 5
+
+## Shows the figure
+show(p)
+
+plot_widget()
