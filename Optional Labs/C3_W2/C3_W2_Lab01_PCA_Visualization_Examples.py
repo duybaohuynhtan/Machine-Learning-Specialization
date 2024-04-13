@@ -7,6 +7,7 @@ from bokeh.plotting import figure
 import matplotlib.pyplot as plt
 import plotly.offline as py
 from pca_utils import random_point_circle, plot_3d_2d_graphs
+import plotly.express as px
 
 def get_pairs(n = 100):
     from random import randint
@@ -141,8 +142,6 @@ sum(pca.explained_variance_ratio_)
 pca_3 = PCA(n_components = 3).fit(df)
 X_t = pca_3.transform(df)
 df_pca_3 = pd.DataFrame(X_t,columns = ['principal_component_1','principal_component_2','principal_component_3'])
-
-import plotly.express as px
 
 fig = px.scatter_3d(df_pca_3, x = 'principal_component_1', y = 'principal_component_2', z = 'principal_component_3').update_traces(marker = dict(color = "#C00000"))
 fig.show()
