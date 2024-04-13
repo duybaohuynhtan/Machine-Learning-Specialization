@@ -38,3 +38,13 @@ pca_1.explained_variance_ratio_
 
 X_trans_1 = pca_1.transform(X)
 X_trans_1
+
+X_reduced_2 = pca_2.inverse_transform(X_trans_2)
+X_reduced_2
+
+plt.plot(X_reduced_2[:,0], X_reduced_2[:,1], 'ro')
+
+X_reduced_1 = pca_1.inverse_transform(X_trans_1)
+X_reduced_1
+
+plt.plot(X_reduced_1[:,0], X_reduced_1[:,1], 'ro')
