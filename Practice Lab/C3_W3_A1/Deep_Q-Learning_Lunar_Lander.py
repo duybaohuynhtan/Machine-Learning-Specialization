@@ -13,6 +13,8 @@ from tensorflow.keras.layers import Dense, Input
 from tensorflow.keras.losses import MSE
 from tensorflow.keras.optimizers import Adam
 
+import logging
+
 def compute_loss(experiences, gamma, q_network, target_q_network):
     """ 
     Calculates the loss.
@@ -181,5 +183,4 @@ print(f"\nTotal Runtime: {tot_time:.2f} s ({(tot_time/60):.2f} min)")
 utils.plot_history(total_point_history)
 
 # Suppress warnings from imageio
-import logging
 logging.getLogger().setLevel(logging.ERROR)
