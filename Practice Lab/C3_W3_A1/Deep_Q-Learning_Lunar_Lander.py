@@ -179,3 +179,7 @@ print(f"\nTotal Runtime: {tot_time:.2f} s ({(tot_time/60):.2f} min)")
 
 # Plot the total point history along with the moving average
 utils.plot_history(total_point_history)
+
+# Suppress warnings from imageio
+import logging
+logging.getLogger().setLevel(logging.ERROR)
