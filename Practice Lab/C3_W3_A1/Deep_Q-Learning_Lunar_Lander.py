@@ -184,3 +184,8 @@ utils.plot_history(total_point_history)
 
 # Suppress warnings from imageio
 logging.getLogger().setLevel(logging.ERROR)
+
+filename = "./videos/lunar_lander.mp4"
+
+utils.create_video(filename, env, q_network)
+utils.embed_mp4(filename)
