@@ -15,3 +15,4 @@ gamma = 0.5
 # Probability of going in the wrong direction
 misstep_prob = 0
 
+generate_visualization(terminal_left_reward, terminal_right_reward, each_step_reward, gamma, misstep_prob)
