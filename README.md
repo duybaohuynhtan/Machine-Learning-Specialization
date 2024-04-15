@@ -1,7 +1,7 @@
-# Machine Learning Specialization Coursera
+# Machine Learning Specialization
 
 
-![](/title-head.png)
+![](/title-head.jpg)
 
 Based on [Machine Learning Specialization](https://www.coursera.org/specializations/machine-learning-introduction/?utm_medium=coursera&utm_source=home-page&utm_campaign=mlslaunch2022IN) by Andrew NG on Coursera 
 
