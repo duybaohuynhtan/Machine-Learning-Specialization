@@ -1,3 +1,4 @@
 {
-    "notebook.output.textLineLimit": 100
+    "notebook.output.textLineLimit": 100,
+    "editor.fontFamily": "'Droid Sans Mono', 'monospace', monospace, 'JetBrainsMono Nerd Font'"
 }
