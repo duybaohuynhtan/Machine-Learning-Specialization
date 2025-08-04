@@ -7,7 +7,7 @@
 [![Library](https://img.shields.io/badge/Library-scikit--learn-yellowgreen)](https://scikit-learn.org/)
 [![Rating](https://img.shields.io/badge/Rating-4.9%2F5-gold)](https://www.coursera.org/specializations/machine-learning-introduction)
 
-This repository contains resources, assignments, and projects from the [**Machine Learning Specialization**](https://www.coursera.org/specializations/machine-learning-introduction) by [**DeepLearning.ai**](https://www.deeplearning.ai/) and **Stanford Online** on **Coursera**, instructed by **Andrew Ng**. This specialization consists of 3 courses that provide the fundamentals of machine learning and how to use these techniques to build real-world AI applications.
+This repository contains resources, assignments, and projects from the [**Machine Learning Specialization**](https://www.coursera.org/specializations/machine-learning-introduction) by [**DeepLearning.AI**](https://www.deeplearning.ai/) and **Stanford Online** on **Coursera**, instructed by **Andrew Ng**. This specialization consists of 3 courses that provide the fundamentals of machine learning and how to use these techniques to build real-world AI applications.
 
 ## 📚 Overview
 
